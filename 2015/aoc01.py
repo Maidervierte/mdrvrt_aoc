@@ -1,6 +1,4 @@
-"""
-aoc01
-"""
+""" 2015 aoc01 """
 
 with open("input01.txt", "r", encoding="utf-8") as f:
     number_list = f.read()
