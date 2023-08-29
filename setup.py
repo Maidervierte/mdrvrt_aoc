@@ -10,4 +10,4 @@ for year in range(2015, 2024):
             input_day = open("./" + str(year) + "/input0" + str(day)+".txt", "w+")
         else:
             aoc_day = open("./" + str(year) + "/aoc" + str(day)+".py", "w+")
-            input_day = open("./" + str(year) + "/input0" + str(day)+".txt", "w+")
+            input_day = open("./" + str(year) + "/input" + str(day)+".txt", "w+")
