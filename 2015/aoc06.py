@@ -1,7 +1,7 @@
 """ 2015 aoc06 """
 
 with open("input06.txt", "r",encoding="utf-8") as f:
-    numberlist = f.read().splitlines()
+    number_list = f.read().splitlines()
 
 
 def on(startx, starty, endx, endy, grid):
@@ -70,7 +70,7 @@ for i in range(1000):
         temp.append(0)
     lights2.append(temp)
 
-for inst in numberlist:
+for inst in number_list:
     split_line = inst.split(" ")
     if "toggle" in inst:
         sx = int(split_line[1].split(",")[0])
