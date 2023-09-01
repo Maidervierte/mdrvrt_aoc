@@ -1,7 +1,6 @@
 """ 2015 aoc22 """
 
 import random
-from tqdm import tqdm
 
 with open("input22.txt", "r", encoding="utf-8") as f:
     stat_lines = f.read().splitlines()
@@ -108,7 +107,6 @@ print("Answer 1:", lowest_mana_spent)
 
 lowest_mana_spent = 999999999
 attempt = 0
-pbar = tqdm(total=max_attempts)
 while attempt < max_attempts:
     mana_spent = 0
     player = player_stats.copy()
