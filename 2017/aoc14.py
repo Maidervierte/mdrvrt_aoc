@@ -71,16 +71,16 @@ for x in range(128):
                 temp_visited = set()
                 for (a, b) in visited:
                     if a > 0:
-                        if grid[a - 1][b] == "1" and (a-1,b) not in all_visited:
+                        if grid[a - 1][b] == "1" and (a - 1, b) not in all_visited:
                             temp_visited.add((a - 1, b))
                     if b > 0:
-                        if grid[a][b - 1] == "1" and (a,b-1) not in all_visited:
+                        if grid[a][b - 1] == "1" and (a, b - 1) not in all_visited:
                             temp_visited.add((a, b - 1))
                     if a < 127:
-                        if grid[a + 1][b] == "1" and (a+1,b) not in all_visited:
+                        if grid[a + 1][b] == "1" and (a + 1, b) not in all_visited:
                             temp_visited.add((a + 1, b))
                     if b < 127:
-                        if grid[a][b + 1] == "1" and (a,b+1) not in all_visited:
+                        if grid[a][b + 1] == "1" and (a, b + 1) not in all_visited:
                             temp_visited.add((a, b + 1))
                 visited = temp_visited
                 all_visited = all_visited.union(visited)
