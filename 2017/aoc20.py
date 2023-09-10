@@ -1,7 +1,5 @@
 """ 2017 aoc20 """
 from collections import Counter
-from tqdm import tqdm
-
 with open("input20.txt", "r", encoding="utf-8") as f:
     input_list = f.read().splitlines()
 
