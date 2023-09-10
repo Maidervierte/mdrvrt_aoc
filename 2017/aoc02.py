@@ -1,4 +1,4 @@
-""" 2017 aoc01 """
+""" 2017 aoc02 """
 
 with open("input02.txt", "r", encoding="utf-8") as f:
     inputlist = f.read().splitlines()
