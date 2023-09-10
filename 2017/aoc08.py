@@ -3,11 +3,6 @@
 with open("input08.txt", "r", encoding="utf-8") as f:
     input_lines = f.read().splitlines()
 
-# input_lines = "b inc 5 if a > 1\n" \
-#               "a inc 1 if b < 5\n" \
-#               "c dec -10 if a >= 1\n" \
-#               "c inc -20 if c == 10".splitlines()
-
 for line in input_lines:
     var1, _, _, _, var2, _, _ = line.split(" ")
     exec(var1 + "=0")
