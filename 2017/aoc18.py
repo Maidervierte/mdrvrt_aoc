@@ -1,5 +1,4 @@
 """ 2017 aoc18 """
-import time
 
 with open("input18.txt", "r", encoding="utf-8") as f:
     input_list = f.read().splitlines()
