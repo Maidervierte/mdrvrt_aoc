@@ -1,5 +1,4 @@
 """ 2018 aoc05 """
-from tqdm import tqdm
 
 with open("input05.txt", "r", encoding="utf-8") as f:
     input_polymers = f.read()
