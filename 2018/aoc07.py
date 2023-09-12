@@ -48,9 +48,9 @@ print("Answer 1:", order)
 order = ""
 time = []
 timed = []
-answer2=-1
+answer2 = -1
 while len(order) != len(steps):
-    answer2+=1
+    answer2 += 1
     pos = []
     for i in range(len(time)):
         if time[i] != 0:
