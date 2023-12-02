@@ -19,6 +19,7 @@ for line in input_list:
     line = line.replace("one", "o1e").replace("two", "t2o").replace("three", "t3e") \
         .replace("four", "4").replace("five", "5e").replace("six", "6") \
         .replace("seven", "7n").replace("eight", "e8t").replace("nine", "n9e")
+
     calibration_value2 = ""
     for char in line:
         if char.isdigit():
