@@ -16,33 +16,18 @@ for line in input_list:
             calibration_value += char
             break
 
+    line = line.replace("one", "o1e").replace("two", "t2o").replace("three", "t3e") \
+        .replace("four", "4").replace("five", "5e").replace("six", "6") \
+        .replace("seven", "7n").replace("eight", "e8t").replace("nine", "n9e")
     calibration_value2 = ""
-    cur = ""
     for char in line:
         if char.isdigit():
             calibration_value2 += char
             break
-        cur += char
-        if cur.replace("one", "1").replace("two", "2").replace("three", "3") \
-                .replace("four", "4").replace("five", "5").replace("six", "6") \
-                .replace("seven", "7").replace("eight", "8").replace("nine", "9") != cur:
-            calibration_value2 += cur.replace("one", "1").replace("two", "2").replace("three", "3") \
-                .replace("four", "4").replace("five", "5").replace("six", "6") \
-                .replace("seven", "7").replace("eight", "8").replace("nine", "9")[-1]
-            break
 
-    cur = ""
     for char in reversed(line):
         if char.isdigit():
             calibration_value2 += char
-            break
-        cur = char + cur
-        if cur.replace("one", "1").replace("two", "2").replace("three", "3") \
-                .replace("four", "4").replace("five", "5").replace("six", "6") \
-                .replace("seven", "7").replace("eight", "8").replace("nine", "9") != cur:
-            calibration_value2 += cur.replace("one", "1").replace("two", "2").replace("three", "3") \
-                .replace("four", "4").replace("five", "5").replace("six", "6") \
-                .replace("seven", "7").replace("eight", "8").replace("nine", "9")[0]
             break
 
     answer1 += int(calibration_value)
