@@ -3,9 +3,6 @@
 with open("input04.txt", "r", encoding="utf-8") as f:
     input_list = f.read().splitlines()
 
-cards = {}
-hands = {}
-
 matches = {}
 answer1 = 0
 won_cards = []
