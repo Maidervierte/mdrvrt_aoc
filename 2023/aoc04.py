@@ -8,8 +8,8 @@ answer1 = 0
 won_cards = []
 for i, line in enumerate(input_list):
     won_cards.append(i + 1)
-    intersection = set(int(x) for x in line.split(" | ")[0].split(": ")[1].split(" ") if x != "") \
-        .intersection(int(x) for x in line.split(" | ")[1].split(" ") if x != "")
+    intersection = set(int(x) for x in line.split(" | ")[0].split(": ")[1].split()) \
+        .intersection(int(x) for x in line.split(" | ")[1].split())
     matches[i + 1] = len(intersection)
     if len(intersection) > 0:
         points = 2 ** (len(intersection) - 1)
