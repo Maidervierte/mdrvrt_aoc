@@ -16,7 +16,7 @@ for line in input_list[3:]:
 inputs.append(cur_input)
 
 seeds = [int(x) for x in input_list[0].split()[1:]]
-min_loc = 9999999999999999999
+min_loc = 9999999999999999
 for item in seeds:
     for input_map in inputs:
         for line in input_map:
