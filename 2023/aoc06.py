@@ -17,8 +17,8 @@ for i, milliseconds in enumerate(times):
 
 print("Answer 1:", number_of_ways[0] * number_of_ways[1] * number_of_ways[2] * number_of_ways[3])
 
-milliseconds = int(str(times[0])+str(times[1])+str(times[2])+str(times[3]))
-goal_distance = int(str(distances[0])+str(distances[1])+str(distances[2])+str(distances[3]))
+milliseconds = int("".join([str(x) for x in times]))
+goal_distance = int("".join([str(x) for x in distances]))
 ways = 0
 for holding in range(milliseconds + 1):
     if holding * (milliseconds - holding) > goal_distance:
