@@ -47,7 +47,7 @@ while i < len(seed_ranges):
             min_seed = seed
     i += 2
 
-for seed_range in [1000000, 100000, 10000, 1000, 100, 10]:
+for seed_range in [100000, 10000, 1000, 100, 10]:
     for item in range(min_seed - seed_range, min_seed + seed_range, seed_range // 10):
         seed = item
         for input_map in inputs:
