@@ -29,11 +29,11 @@ for item in seeds:
 print("Answer 1:", min_loc)
 
 seed_ranges = [int(x) for x in input_list[0].split()[1:]]
+i = 0
 min_loc = 9999999999999999
 min_seed = 0
-i = 0
 while i < len(seed_ranges):
-    for x in range(0, seed_ranges[i + 1], 100000):
+    for x in range(0, seed_ranges[i + 1], 50000):
         seed = seed_ranges[i] + x
         item = seed
         for input_map in inputs:
@@ -47,17 +47,13 @@ while i < len(seed_ranges):
             min_seed = seed
     i += 2
 
-for seed_range in [1000000, 100000, 10000, 1000, 100, 10]:
-    for item in range(min_seed - seed_range, min_seed + seed_range, seed_range // 10):
-        seed = item
-        for input_map in inputs:
-            for line in input_map:
-                dest_range_start, source_range_start, range_length = line
-                if source_range_start <= item <= source_range_start + range_length:
-                    item = dest_range_start + (item - source_range_start)
-                    break
-        if item < min_loc:
-            min_loc = item
-            min_seed = seed
+for item in range(min_seed - 50000, min_seed + 50000):
+    for input_map in inputs:
+        for line in input_map:
+            dest_range_start, source_range_start, range_length = line
+            if source_range_start <= item <= source_range_start + range_length:
+                item = dest_range_start + (item - source_range_start)
+                break
+    min_loc = min(min_loc, item)
 
 print("Answer 2:", min_loc)
