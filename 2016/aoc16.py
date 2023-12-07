@@ -31,7 +31,6 @@ translation = {48: 49, 49: 48}
 while len(cur_state) < max_len:
     b = cur_state[::-1].translate(translation)
     cur_state = cur_state + "0" + b
-
 cur_state = cur_state[:max_len]
 check_sum = cur_state
 while len(check_sum) % 2 == 0:
@@ -44,4 +43,4 @@ while len(check_sum) % 2 == 0:
             _check_sum.append("0")
     check_sum = "".join(_check_sum)[::-1]
 
-print("Answer 1:", check_sum)
+print("Answer 2:", check_sum)
