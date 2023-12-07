@@ -13,6 +13,7 @@ for line in input_list:
     bids[cards] = bid
     hands.append(cards)
 
+
 def compare(hand1, hand2):
     """compare two hands"""
     # print(hand1, hand2)
@@ -36,21 +37,21 @@ highs = []
 values = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
 
 for hand in hands:
-    if len(set(list(hand))) == 1:
+    if len(set(hand)) == 1:
         fives.append(hand)
-    if len(set(list(hand))) == 2:
+    if len(set(hand)) == 2:
         if hand.count(hand[0]) == 1 or hand.count(hand[0]) == 4:
             fours.append(hand)
         else:
             full_house.append(hand)
-    if len(set(list(hand))) == 3:
+    if len(set(hand)) == 3:
         if hand.count(hand[0]) == 3 or hand.count(hand[1]) == 3 or hand.count(hand[2]) == 3:
             threes.append(hand)
         else:
             twos.append(hand)
-    if len(set(list(hand))) == 4:
+    if len(set(hand)) == 4:
         pairs.append(hand)
-    if len(set(list(hand))) == 5:
+    if len(set(hand)) == 5:
         highs.append(hand)
 
 fives = sorted(fives, key=functools.cmp_to_key(compare))
@@ -97,10 +98,10 @@ values = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2", "J"]
 for hand in hands:
     # print()
     # print(hand)
-    if len(set(list(hand))) == 1:
+    if len(set(hand)) == 1:
         # print("Fives")
         fives.append(hand)
-    if len(set(list(hand))) == 2:
+    if len(set(hand)) == 2:
         if "J" in hand:
             # print("Fives")
             fives.append(hand)
@@ -110,7 +111,7 @@ for hand in hands:
         else:
             # print("Full House")
             full_house.append(hand)
-    if len(set(list(hand))) == 3:
+    if len(set(hand)) == 3:
         if hand.count(hand[0]) == 3 or hand.count(hand[1]) == 3 or hand.count(hand[2]) == 3:
             if "J" in hand:
                 # print("Fours")
@@ -129,14 +130,14 @@ for hand in hands:
             else:
                 # print("Twos")
                 twos.append(hand)
-    if len(set(list(hand))) == 4:
+    if len(set(hand)) == 4:
         if "J" in hand:
             # print("Threes")
             threes.append(hand)
         else:
             # print("Pairs")
             pairs.append(hand)
-    if len(set(list(hand))) == 5:
+    if len(set(hand)) == 5:
         if "J" in hand:
             # print("Pairs")
             pairs.append(hand)
