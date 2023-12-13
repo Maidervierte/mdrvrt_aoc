@@ -90,8 +90,6 @@ for m, mirror in enumerate(mirrors):
                 break
     if mirror_found:
         continue
-    if mirror_found:
-        continue
     mirror = list(map(list, zip(*mirror)))
     for i, line in enumerate(mirror[:-1]):
         if not not_similar_enough(line, mirror[i + 1]) and (
