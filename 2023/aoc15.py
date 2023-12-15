@@ -7,9 +7,7 @@ answer1 = 0
 for i, line in enumerate(input_list):
     temp = 0
     for char in line:
-        temp = temp + ord(char)
-        temp = temp * 17
-        temp = temp % 256
+        temp = ((temp + ord(char)) * 17) % 256
     answer1 += temp
 print("Answer 1:", answer1)
 
@@ -20,18 +18,14 @@ for i, lens in enumerate(input_list):
         label = lens[:-1]
         box = 0
         for char in label:
-            box = box + ord(char)
-            box = box * 17
-            box = box % 256
+            box = ((box + ord(char)) * 17) % 256
         if label in boxes[box]:
             boxes[box].remove(label)
     else:
         label, focal_length = lens.split("=")[0], int(lens.split("=")[1])
         box = 0
         for char in label:
-            box = box + ord(char)
-            box = box * 17
-            box = box % 256
+            box = ((box + ord(char)) * 17) % 256
         if label not in boxes[box]:
             boxes[box].append(label)
         focal_lengths[label, box] = focal_length
