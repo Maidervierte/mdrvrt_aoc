@@ -11,7 +11,6 @@ for i, line in enumerate(input_list):
         temp = temp * 17
         temp = temp % 256
     answer1 += temp
-    # print(i, line)
 print("Answer 1:", answer1)
 
 boxes = [[] for x in range(256)]
