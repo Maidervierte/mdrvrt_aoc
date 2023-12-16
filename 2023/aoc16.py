@@ -22,139 +22,54 @@ for start_pos in start_posses:
     for _ in range(1000):
         new_pos = []
         for x, y, d in cur_pos:
+            if (x, y, d) in visited:
+                continue
+            visited.add((x, y, d))
             match d:
                 case "R":
                     if (x, y + 1) in maze:
                         energized.add((x, y + 1))
                         match maze[x, y + 1]:
-                            case ".":
-                                new = (x, y + 1, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "/":
-                                new = (x, y + 1, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "\\":
-                                new = (x, y + 1, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "-":
-                                new = (x, y + 1, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                            case ".":  new_pos.append((x, y + 1, "R"))
+                            case "/":  new_pos.append((x, y + 1, "U"))
+                            case "\\": new_pos.append((x, y + 1, "D"))
+                            case "-":  new_pos.append((x, y + 1, "R"))
                             case "|":
-                                new = (x, y + 1, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                                new = (x, y + 1, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                                new_pos.append((x, y + 1, "U"))
+                                new_pos.append((x, y + 1, "D"))
                 case "L":
                     if (x, y - 1) in maze:
                         energized.add((x, y - 1))
                         match maze[x, y - 1]:
-                            case ".":
-                                new = (x, y - 1, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "/":
-                                new = (x, y - 1, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "\\":
-                                new = (x, y - 1, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "-":
-                                new = (x, y - 1, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                            case ".":  new_pos.append((x, y - 1, "L"))
+                            case "/":  new_pos.append((x, y - 1, "D"))
+                            case "\\": new_pos.append((x, y - 1, "U"))
+                            case "-":  new_pos.append((x, y - 1, "L"))
                             case "|":
-                                new = (x, y - 1, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                                new = (x, y - 1, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                                new_pos.append((x, y - 1, "U"))
+                                new_pos.append((x, y - 1, "D"))
                 case "U":
                     if (x - 1, y) in maze:
                         energized.add((x - 1, y))
                         match maze[x - 1, y]:
-                            case ".":
-                                new = (x - 1, y, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "/":
-                                new = (x - 1, y, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "\\":
-                                new = (x - 1, y, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                            case ".":  new_pos.append((x - 1, y, "U"))
+                            case "/":  new_pos.append((x - 1, y, "R"))
+                            case "\\": new_pos.append((x - 1, y, "L"))
                             case "-":
-                                new = (x - 1, y, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                                new = (x - 1, y, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "|":
-                                new = (x - 1, y, "U")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                                new_pos.append((x - 1, y, "L"))
+                                new_pos.append((x - 1, y, "R"))
+                            case "|":  new_pos.append((x - 1, y, "U"))
                 case "D":
                     if (x + 1, y) in maze:
                         energized.add((x + 1, y))
                         match maze[x + 1, y]:
-                            case ".":
-                                new = (x + 1, y, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "/":
-                                new = (x + 1, y, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "\\":
-                                new = (x + 1, y, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                            case ".":  new_pos.append((x + 1, y, "D"))
+                            case "/":  new_pos.append((x + 1, y, "L"))
+                            case "\\": new_pos.append((x + 1, y, "R"))
                             case "-":
-                                new = (x + 1, y, "L")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                                new = (x + 1, y, "R")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
-                            case "|":
-                                new = (x + 1, y, "D")
-                                if new not in visited:
-                                    new_pos.append(new)
-                                    visited.add(new)
+                                new_pos.append((x + 1, y, "L"))
+                                new_pos.append((x + 1, y, "R"))
+                            case "|":  new_pos.append((x + 1, y, "D"))
         cur_pos = new_pos
     answer2.append(len(energized))
     if start_pos == (0, -1, "R"):
