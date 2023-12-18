@@ -1,7 +1,7 @@
 """ 2019 aoc05 """
 
 with open("input05.txt", "r", encoding="utf-8") as f:
-    intput_list = [int(x) for x in f.read().split(",")]
+    input_list = [int(x) for x in f.read().split(",")]
 
 
 def intcode(program, intcode_input, part, debug):
@@ -231,5 +231,5 @@ def intcode(program, intcode_input, part, debug):
             print()
 
 
-intcode(intput_list.copy(), 1, 1, False)
-intcode(intput_list.copy(), 5, 2, False)
+intcode(input_list.copy(), 1, 1, False)
+intcode(input_list.copy(), 5, 2, False)
