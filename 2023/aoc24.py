@@ -122,7 +122,6 @@ for svx in range(-1000, 1000):
             for x in col_y[1:]:
                 y0 += x
                 y0 /= 2
-            print(round(x0), round(y0))
             break
 
 collision = False
