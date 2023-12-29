@@ -78,7 +78,6 @@ for svx in range(-1000, 1000):
                 continue
 
             if m1 == m2:
-                # print("m1==m2")
                 collision = False
                 break
 
@@ -86,19 +85,15 @@ for svx in range(-1000, 1000):
             y0 = (q1 * m2 - q2 * m1) / (-m1 + m2)
 
             if (va1 > 0 and x0 < a1) or (va1 < 0 and x0 > a1):
-                # print("past x1:", x0)
                 collision = False
                 break
             if (va2 > 0 and x0 < a2) or (va2 < 0 and x0 > a2):
-                # print("past x2", x0)
                 collision = False
                 break
             if (vb1 > 0 and y0 < b1) or (vb1 < 0 and y0 > b1):
-                # print("past y1", y0)
                 collision = False
                 break
             if (vb2 > 0 and y0 < b2) or (vb2 < 0 and y0 > b2):
-                # print("past y2", y0)
                 collision = False
                 break
             col_x.append(x0)
@@ -107,7 +102,6 @@ for svx in range(-1000, 1000):
             y0 = round(y0)
             x0 = int(str(x0)[:-3])
             y0 = int(str(y0)[:-3])
-            # print(x0,y0)
             if not collision:
                 collision = (x0, y0)
             elif (x0, y0) != collision:
@@ -147,7 +141,6 @@ for svz in range(-1000, 1000):
             continue
 
         if m1 == m2:
-            # print("m1==m2")
             collision = False
             break
 
@@ -155,19 +148,15 @@ for svz in range(-1000, 1000):
         z0 = (q1 * m2 - q2 * m1) / (-m1 + m2)
 
         if (va1 > 0 and y0 < a1) or (va1 < 0 and y0 > a1):
-            # print("past x1:", x0)
             collision = False
             break
         if (va2 > 0 and y0 < a2) or (va2 < 0 and y0 > a2):
-            # print("past x2", x0)
             collision = False
             break
         if (vb1 > 0 and z0 < b1) or (vb1 < 0 and z0 > b1):
-            # print("past y1", y0)
             collision = False
             break
         if (vb2 > 0 and z0 < b2) or (vb2 < 0 and z0 > b2):
-            # print("past y2", y0)
             collision = False
             break
         col_y.append(y0)
