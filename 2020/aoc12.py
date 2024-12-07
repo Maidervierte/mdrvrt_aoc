@@ -35,19 +35,25 @@ for new_dir, dis in input_list:
 answer1 = sum([abs(cur_pos[0]), abs(cur_pos[1])])
 print("Answer 1:", answer1)
 
-cur_dir = "E"
 cur_pos = (0, 0)
 way_pos = (1, 10)
 cardinals = ["N", "E", "S", "W"]
 for new_dir, dis in input_list:
+    print(new_dir,dis)
+    print("",cur_pos,way_pos)
     if new_dir in ["N", "E", "S", "W"]:
         way_pos = cardinal(new_dir, dis, way_pos)
     match new_dir:
         case "L":
-            cur_dir = cardinals[cardinals.index(cur_dir) - (dis // 90)]
+            for _ in range(dis//90):
+                temp_pos = (way_pos[1], -way_pos[0])
+                way_pos = temp_pos
         case "R":
-            cur_dir = cardinals[(cardinals.index(cur_dir) + (dis // 90)) % 4]
-        # case "F":
-        #     cur_pos = cardinal(cur_dir, dis, cur_pos)
+            for _ in range(dis//90):
+                temp_pos = (-way_pos[1], way_pos[0])
+                way_pos = temp_pos
+        case "F":
+            cur_pos = (cur_pos[0] + dis * way_pos[0], cur_pos[1] + dis * way_pos[1])
+    print("",cur_pos,way_pos)
 answer2 = sum([abs(cur_pos[0]), abs(cur_pos[1])])
 print("Answer 2:", answer2)
