@@ -33,38 +33,46 @@ for i, file_id in enumerate(files):
     answer1 += i * file_id
 print("Answer 1:", answer1)
 
-files = list(temp)
-cur_sym = files[-1]
-dots = 0
-for i, move_file in enumerate(reversed(temp)):
-    files_template = "".join(["x" if x != "." else "." for x in files])
-    if "." not in files:
-        break
-    if move_file == ".":
-        dots += 1
-        continue
-    if move_file != cur_sym:
-        last_index = len(files) - list(reversed(files)).index(cur_sym)
-        file_size = last_index - files.index(cur_sym)
-        template = "." * file_size
-        if template not in files_template:
-            cur_sym = move_file
-            dots = 0
-            continue
-        index = files_template.index(template)
-        if index >= files.index(cur_sym):
-            cur_sym = move_file
-            dots = 0
-            continue
-        for j in range(index, index + len(template)):
-            files[j] = cur_sym
-            files[-i + j - index + dots] = "."
-        cur_sym = move_file
-    dots = 0
+files = {}
+i = 0
+start_index = 0
+file_id = 0
+while i < len(input_list):
+    files[start_index] = (file_id, input_list[i])
+    file_id += 1
+    start_index += input_list[i]
+    i += 1
+    if i < len(input_list):
+        files[start_index] = (".", input_list[i])
+        start_index += input_list[i]
+        i += 1
 
-answer2 = 0
-for i, file_id in enumerate(files):
+for file_index in reversed(sorted(files.keys())):
+    file_id, file_size = files[file_index]
     if file_id == ".":
         continue
-    answer2 += i * file_id
+    for space_index in sorted(files.keys()):
+        if space_index >= file_index:
+            break
+        if files.get(space_index, [None])[0] != ".":
+            continue
+        space_size = files[space_index][1]
+        if space_size == file_size:
+            files[file_index] = (".", file_size)
+            files[space_index] = (file_id, file_size)
+            break
+        if space_size > file_size:
+            files[file_index] = (".", file_size)
+            files[space_index] = (file_id, file_size)
+            space_index += file_size
+            files[space_index] = (".", space_size - file_size)
+            break
+
+answer2 = 0
+start_index = 0
+for file_index, (file_id, file_size) in files.items():
+    if file_id == ".":
+        continue
+    for i in range(file_size):
+        answer2 += (file_index + i) * file_id
 print("Answer 2:", answer2)
