@@ -15,20 +15,14 @@ for initialization in mask_list:
     mask = initialization[0][0]
     operations = initialization[1:]
     for operation in operations:
-        # print("----------------------------------------------")
         bin_val = bin(operation[1])
-        # print("0" * (len(mask) - len(bin_val[2:])) + bin_val[2:])
-        # print(mask)
         result = ""
         for i, bit in enumerate(reversed(bin_val[2:])):
-            # print(str(i)+":", bit, mask[-i])
             if mask[-i - 1] != "X":
                 result = mask[-i - 1] + result
             else:
                 result = str(bit) + result
         result = "".join([x if x == "1" else "0" for x in mask[:-len(result)]]) + result
-        # print(mask)
-        # print(result, int(result, 2))
         memory[operation[0]] = int(result, 2)
 answer1 = sum(memory.values())
 print("Answer 1:", answer1)
