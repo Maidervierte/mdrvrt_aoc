@@ -40,6 +40,7 @@ def canMove2(pos, _dir):
     if warehouse.get((pos[0] + _dir[0], pos[1] + _dir[1]), "#") == "]":
         return canMove2((pos[0] + _dir[0], pos[1] + _dir[1] * 3), _dir) and \
             canMove2((pos[0] + _dir[0], pos[1] + _dir[1] - 1), _dir)
+    return False
 
 
 def toMove2(pos, _dir):
@@ -88,43 +89,28 @@ print("Answer 1:", answer1)
 robot = (0, 0)
 warehouse = {}
 for i, line in enumerate(input_list):
-    printline = ""
     if line == "":
         break
     for j, char in enumerate(line):
         if char == "#":
-            printline += "##"
             warehouse[(i, j * 2)] = "#"
             warehouse[(i, j * 2 + 1)] = "#"
         if char == ".":
-            printline += ".."
             warehouse[(i, j * 2)] = "."
             warehouse[(i, j * 2 + 1)] = "."
         if char == "O":
-            printline += "[]"
             warehouse[(i, j * 2)] = "["
             warehouse[(i, j * 2 + 1)] = "]"
         if char == "@":
-            printline += "@."
             robot = (i, j * 2)
             warehouse[(i, j * 2)] = "@"
             warehouse[(i, j * 2 + 1)] = "."
-    print(printline)
 
 for i, move in enumerate(moves):
     move_dir = dirs[arrows.index(move)]
-    print(i, move, move_dir, canMove2(robot, move_dir))
-    print("----------------------------------------------------------------")
     if canMove2(robot, move_dir):
         toMove2(robot, move_dir)
         robot = (robot[0] + move_dir[0], robot[1] + move_dir[1])
-    for x in range(len(input_list)):
-        if input_list[x] == "":
-            break
-        printline = ""
-        for y in range(len(input_list[0] * 2)):
-            printline += warehouse[(x, y)]
-        print(printline)
 
 for key, value in warehouse.items():
     if value == "[":
