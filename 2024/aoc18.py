@@ -20,14 +20,19 @@ for i, line in enumerate(input_list):
     grid[x, y] = "#"
 end = (hori, vert)
 
-for s, (s1, s2) in enumerate(input_list[simcount:]):
+temp = []
+for s, (s1, s2) in enumerate(input_list[simcount - 1:]):
     grid[(s2, s1)] = "#"
+    if s > 0 and (s2, s1) not in temp:
+        continue
     visited = set()
-    paths = [(0, 0)]
+    paths = [[(0, 0)]]
     for step in range(1, vert * hori + 10):
         temp_paths = []
-        for (x, y) in sorted(paths):
+        for path in sorted(paths):
+            (x, y) = path[-1]
             for i, j in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                temp = list(path)
                 if (x + i, y + j) not in grid:
                     continue
                 if grid[(x + i, y + j)] == "#":
@@ -35,7 +40,8 @@ for s, (s1, s2) in enumerate(input_list[simcount:]):
                 if (x + i, y + j) in visited:
                     continue
                 visited.add((x + i, y + j))
-                temp_paths.append((x + i, y + j))
+                temp.append((x + i, y + j))
+                temp_paths.append(temp)
                 if (x + i, y + j) == end:
                     if answer1 == 0:
                         answer1 = step
