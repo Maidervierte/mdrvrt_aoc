@@ -1,179 +1,77 @@
 """ 2024 aoc21"""
+from itertools import permutations
 
 with open("input21.txt", "r", encoding="utf-8") as f:
-    input_list = [list(x) for x in f.read().splitlines()]
+    input_list = f.read().splitlines()
 
 answer1 = 0
 answer2 = 0
-keypad1 = {(0, 0): "7", (0, 1): "8", (0, 2): "9",
-           (1, 0): "4", (1, 1): "5", (1, 2): "6",
-           (2, 0): "1", (2, 1): "2", (2, 2): "3",
-           (3, 1): "0", (3, 2): "A"}
+keypad1 = {"7": (0, 0), "8": (0, 1), "9": (0, 2),
+           "4": (1, 0), "5": (1, 1), "6": (1, 2),
+           "1": (2, 0), "2": (2, 1), "3": (2, 2),
+           "0": (3, 1), "A": (3, 2)}
+keypad2 = {"^": (0, 1), "A": (0, 2),
+           "<": (1, 0), "v": (1, 1), ">": (1, 2)}
+dirs = {"^": (-1, 0), "v": (1, 0),
+        "<": (0, -1), ">": (0, 1)}
+sequences = {}
 
-keypad2 = {(0, 1): "^", (0, 2): "A",
-           (1, 0): "<", (1, 1): "v", (1, 2): ">"}
 
-start1 = (3, 2)
-robot1 = []
-for i, code in enumerate(input_list):
-    code_path = []
+def sequence_length(code, max_keypad, cur_keypad):
+    """sequence_length"""
+    sequence = (code, max_keypad, cur_keypad)
+    if sequence in sequences:
+        return sequences[sequence]
+    keypad = keypad1 if cur_keypad == 0 else keypad2
+    x, y = keypad["A"]
+    total = 0
     for char in code:
-        char_code = []
-        if keypad1[start1] == char:
-            code_path.append(["A"])
-            continue
-        paths = [[[], [start1]]]
-        while True:
-            temp_paths = []
-            for path in paths:
-                (x, y) = path[1][-1]
-                for i, j, c in [(1, 0, "v"), (-1, 0, "^"), (0, -1, "<"), (0, 1, ">")]:
-                    if (x + i, y + j) in keypad1:
-                        temp_path = list(path[1])
-                        temp_code = list(path[0])
-                        temp_path.append((x + i, y + j))
-                        temp_code.append(c)
-                        if keypad1[(x + i, y + j)] == char:
-                            temp_code.append("A")
-                            char_code.append("".join(temp_code))
-                            start1 = (x + i, y + j)
-                        temp_paths.append([list(temp_code), list(temp_path)])
+        i, j = keypad[char]
+        to_move_x, to_move_y = ((i - x), (j - y))
+        moves = []
+        for _ in range(abs(to_move_x)):
+            if to_move_x < 0:
+                moves.append("^")
             else:
-                paths = temp_paths
-                if char_code:
-                    code_path.append(char_code)
-                    break
-                continue
-    robot1.append(code_path)
-
-combs = []
-for robot in robot1:
-    prev = list(robot[0])
-    for i in range(1, len(robot)):
-        t1 = []
-        for j in robot[i]:
-            for t2 in prev:
-                t1.append("".join(t2) + j)
-        prev = t1
-    combs.append(prev)
-robot1 = combs
-
-start2 = (0, 2)
-robot2 = []
-for i, codes in enumerate(robot1):
-    codes_path = []
-    for code in codes:
-        code_path = []
-        for char in code:
-            char_code = []
-            if keypad2[start2] == char:
-                code_path.append(["A"])
-                continue
-            paths = [[[], [start2]]]
-            while True:
-                temp_paths = []
-                for path in paths:
-                    (x, y) = path[1][-1]
-                    for i, j, c in [(1, 0, "v"), (-1, 0, "^"), (0, -1, "<"), (0, 1, ">")]:
-                        if (x + i, y + j) in keypad2:
-                            temp_path = list(path[1])
-                            temp_code = list(path[0])
-                            temp_path.append((x + i, y + j))
-                            temp_code.append(c)
-                            if keypad2[(x + i, y + j)] == char:
-                                temp_code.append("A")
-                                char_code.append("".join(temp_code))
-                                start2 = (x + i, y + j)
-                            temp_paths.append([list(temp_code), list(temp_path)])
-                else:
-                    paths = temp_paths
-                    if char_code:
-                        code_path.append(char_code)
+                moves.append("v")
+        for _ in range(abs(to_move_y)):
+            if to_move_y < 0:
+                moves.append("<")
+            else:
+                moves.append(">")
+        if moves:
+            moves_list = set(permutations(moves))
+            valid_moves_list = []
+            for moves in moves_list:
+                _x, _y = x, y
+                for move in moves:
+                    _i, _j = dirs[move]
+                    _x, _y = ((_x + _i), (_y + _j))
+                    if (_x, _y) not in keypad.values():
                         break
-                    continue
-        codes_path.append(code_path)
-    robot2.append(codes_path)
+                else:
+                    valid_moves_list.append("".join(moves + ("A",)))
+        else:
+            valid_moves_list = ["A"]
+        min_len = 99999999999
+        if cur_keypad == max_keypad:
+            min_len = len(min(valid_moves_list, key=len))
+            sequences[sequence] = min_len
+            total += min_len
+        else:
+            for moves in valid_moves_list:
+                cur_len = sequence_length(moves, max_keypad, cur_keypad + 1)
+                min_len = min(cur_len, min_len)
+            total += min_len
+        x, y = i, j
+    sequences[sequence] = total
+    return total
 
-combs_outer = []
-for robot in robot2:
-    combs = []
-    for code in robot:
-        prev = list(code[0])
-        for i in range(1, len(code)):
-            t1 = []
-            for j in code[i]:
-                for t2 in prev:
-                    t1.append("".join(t2) + j)
-            prev = t1
-        combs.append(prev)
-    combs_outer.append(combs)
-robot2 = combs_outer
 
-start2 = (0, 2)
-robot3 = []
-for i, outer_codes in enumerate(robot2):
-    outer_codes_path = []
-    for codes in outer_codes:
-        codes_path = []
-        for code in codes:
-            code_path = []
-            for char in code:
-                char_code = []
-                if keypad2[start2] == char:
-                    code_path.append(["A"])
-                    continue
-                paths = [[[], [start2]]]
-                while True:
-                    temp_paths = []
-                    for path in paths:
-                        (x, y) = path[1][-1]
-                        for i, j, c in [(1, 0, "v"), (-1, 0, "^"), (0, -1, "<"), (0, 1, ">")]:
-                            if (x + i, y + j) in keypad2:
-                                temp_path = list(path[1])
-                                temp_code = list(path[0])
-                                temp_path.append((x + i, y + j))
-                                temp_code.append(c)
-                                if keypad2[(x + i, y + j)] == char:
-                                    temp_code.append("A")
-                                    char_code.append("".join(temp_code))
-                                    start2 = (x + i, y + j)
-                                temp_paths.append([list(temp_code), list(temp_path)])
-                    else:
-                        paths = temp_paths
-                        if char_code:
-                            code_path.append(char_code)
-                            break
-                        continue
-            codes_path.append(code_path)
-        outer_codes_path.append(codes_path)
-    robot3.append(outer_codes_path)
-
-combs_outer_outer = []
-for robot in robot3:
-    combs_outer = []
-    for rob in robot:
-        combs = []
-        for code in rob:
-            prev = list(code[0])
-            for i in range(1, len(code)):
-                t1 = []
-                for j in code[i]:
-                    for t2 in prev:
-                        t1.append("".join(t2) + j)
-                prev = t1
-            combs.append(prev)
-        combs_outer.append(combs)
-    combs_outer_outer.append(combs_outer)
-robot3 = combs_outer_outer
-
-for i, robot in enumerate(robot3):
-    minlen = 9999
-    for rob in robot:
-        for ro in rob:
-            for r in ro:
-                if len(r) < minlen:
-                    minlen = len(r)
-    answer1 += minlen * int("".join([x for x in input_list[i] if x.isdigit()]))
-
+for line in input_list:
+    code_len = sequence_length(line, 2, 0)
+    answer1 += code_len * int("".join([x for x in line if x.isdigit()]))
+    code_len = sequence_length(line, 25, 0)
+    answer2 += code_len * int("".join([x for x in line if x.isdigit()]))
 print("Answer 1:", answer1)
 print("Answer 2:", answer2)
