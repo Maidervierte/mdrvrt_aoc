@@ -30,7 +30,6 @@ for _ in range(len(input_list)):
 
 beams = {start: 1}
 for i in range(len(input_list)):
-    print(i / len(input_list))
     temp_beams = {}
     for (x, y), v in beams.items():
         if (x + 1, y) in splitters:
